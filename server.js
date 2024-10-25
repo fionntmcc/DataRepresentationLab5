@@ -50,7 +50,7 @@ app.get('/index', (req, res) => {
 });
 
 
-// 
+// display URL params
 app.get('/hello/:fname/:surname', (req, res) => {
     const fname = req.params.fname;
     const surname = req.params.surname;
@@ -65,8 +65,9 @@ app.get("/whatever", (req, res) => {
     res.send("Whatever I want");
 });
 
+// return movies as JSON
 app.get("/api/movies", (req, res) => {
-    // app returns back json on movies
+    // app returns back JSON on movies
     const movies = [
         {
             "Title": "Avengers: Infinity War",
@@ -90,10 +91,12 @@ app.get("/api/movies", (req, res) => {
             "Poster": "https://example.com/poster3.jpg"
         }
     ];
+    // status ok
     res.status(200).json({ myMovies: movies });
 
 });
 
+// log port to console
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
