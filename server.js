@@ -46,7 +46,8 @@ app.get("/api/movies", (req, res) => {
             "Poster": "https://example.com/poster3.jpg"
         }
     ];
-    res.json({ movies });
+    res.status(200).json({ myMovies: movies });
+
 });
 
 app.listen(port, () => {
