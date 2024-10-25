@@ -21,6 +21,34 @@ app.get("/whatever", (req, res) => {
     res.send("Whatever I want");
 });
 
+app.get("/api/movies", (req, res) => {
+    // app returns back json on movies
+    const movies = [
+        {
+            "Title": "Avengers: Infinity War",
+            "Year": "2018",
+            "imdbID": "tt4154756",
+            "Type": "movie",
+            "Poster": "https://example.com/poster1.jpg"
+        },
+        {
+            "Title": "Captain America: Civil War",
+            "Year": "2016",
+            "imdbID": "tt3498820",
+            "Type": "movie",
+            "Poster": "https://example.com/poster2.jpg"
+        },
+        {
+            "Title": "World War Z",
+            "Year": "2013",
+            "imdbID": "tt0816711",
+            "Type": "movie",
+            "Poster": "https://example.com/poster3.jpg"
+        }
+    ];
+    res.json({ movies });
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
