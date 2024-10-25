@@ -1,11 +1,27 @@
+
+/*
+    Express.js allows for easy creation of a server that 
+    handles routes and uses URL params
+*/
+
 const express = require('express');
 const app = express();
-const port = 3000;
+
+const port = 3000; // port for website
+
 const bodyParser = require('body-parser');
+
+const path = require('path');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
-const path = require('path');
+
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
 
 app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -23,10 +39,7 @@ app.get('/index', (req, res) => {
     });
 });
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
-});
+
 
 app.get('/hello/:fname/:surname', (req, res) => {
     const fname = req.params.fname;
