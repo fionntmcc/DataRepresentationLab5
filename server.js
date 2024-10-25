@@ -9,6 +9,11 @@ const app = express();
 
 const port = 3000; // port for website
 
+/*
+    The bodyParser allows for access to the body of a post.
+    This is necessary because unlike the get method, data
+    is returned in the body, and not the URL.
+*/
 const bodyParser = require('body-parser');
 
 const path = require('path');
@@ -17,30 +22,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-
+// return status code 500 if there is an error in gets / posts
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
 });
 
+// give reference to the index.html file
 app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 
+    // handle get call from index.html
     app.get('/name', (req, res) => {
         const firstname = req.query.firstname;
         const lastname = req.query.lastname;
+        // display query info
         res.send(`Hello ${firstname} ${lastname}`);
     });
 
+    // handle post calls from index.html
     app.post('/name', (req, res) => {
         const firstname = req.body.firstname;
         const lastname = req.body.lastname;
+        // display body info
         res.send(`Hello ${firstname} ${lastname}`);
     });
 });
 
 
-
+// 
 app.get('/hello/:fname/:surname', (req, res) => {
     const fname = req.params.fname;
     const surname = req.params.surname;
